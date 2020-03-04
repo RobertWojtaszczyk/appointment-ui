@@ -1,0 +1,34 @@
+<div class="container wrapper">
+  <div class="row">
+
+    <!-- TimeSlots table -->
+    <div class="col-md-12">
+      <div class="inner">
+        <h3>My TimeSlots</h3>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th scope="col">Contractor name</th>
+            <th scope="col">TimeSlot Start</th>
+            <th scope="col">TimeSlots End</th>
+            <th scope="col">TimeSlots Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let timeSlots of TimeSlotsList">
+            <th scope="row">{{timeSlots.contractor.firstName}}</th>
+            <td>{{timeSlots.timeSlotStart}}</td>
+            <td>{{timeSlots.timeSlotEnd}}</td>
+            <td>{{timeSlots.timeSlotStatus}}</td>
+            <!--<td>
+              <button type="button" class="btn btn-success btn-sm move-right" [routerLink]="['/edit-issue/', issues.id]">Edit</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="deleteIusse(issues)">Remove</button>
+            </td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
