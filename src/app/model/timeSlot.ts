@@ -1,6 +1,6 @@
 import {Contractor} from './contractor';
 
-export class TimeSlot {
+export interface TimeSlot {
   id: string;
   timeSlotStart: string;
   timeSlotEnd: string;
@@ -12,4 +12,9 @@ export class TimeSlot {
   clientComment: string;
   createdDate: string;
   modifiedDate: string;
+}
+
+export interface TimeSlotResolved {
+  timeSlot: TimeSlot;
+  error?: any;
 }

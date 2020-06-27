@@ -5,21 +5,34 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NewTimeSlotsComponent } from './new-time-slots/new-time-slots.component';
 import {HttpClientModule} from '@angular/common/http';
-import {TimeSlotsService} from './shared/time-slots.service';
-import { TimeslotsComponent } from './components/timeslots/timeslots.component';
+import {TimeSlotsService} from './time-slot/time-slots.service';
+import { TimeSlotListComponent } from './time-slot/time-slot-list/time-slot-list.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {TimeSlotModule} from './time-slot/time-slot.module';
+import { MessageComponent } from './message/message.component';
+import {UserModule} from './user/user.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     NewTimeSlotsComponent,
-    TimeslotsComponent
+    WelcomeComponent,
+    PageNotFoundComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    TimeSlotModule,
+    UserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
-  providers: [TimeSlotsService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

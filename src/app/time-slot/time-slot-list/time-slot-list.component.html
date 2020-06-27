@@ -1,0 +1,68 @@
+<div class="container wrapper">
+  <div class="row">
+
+    <!-- TimeSlots table -->
+    <div class="col-md-12 text-center">
+      <div class="inner">
+        <h3>My TimeSlots</h3>
+        <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" (dateSelect)="onDateSelect($event)"></ngb-datepicker>
+<!--        <hr/>-->
+
+<!--        <button class="btn btn-sm btn-outline-primary mr-2" (click)="selectToday()">Select Today</button>-->
+<!--        <button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo()">To current month</button>-->
+<!--        <button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button>-->
+
+<!--        <button class="btn btn-sm btn-outline-primary mr-2" (click)="loadTimeSlots(1)">Show TimeSlots</button>-->
+
+<!--        <hr/>-->
+<!--        <pre>Month: {{ date.month }}.{{ date.year }}</pre>-->
+<!--        <pre>Model: {{ model | json }}</pre>-->
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th scope="col">Contractor name</th>
+            <th scope="col">TimeSlot Start</th>
+            <th scope="col">TimeSlots End</th>
+            <th scope="col">TimeSlots Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let timeSlots of TimeSlotsList">
+            <th scope="row">{{timeSlots.contractor.firstName}}</th>
+            <td>{{timeSlots.timeSlotStart | date: 'dd-MM-yyyy HH:mm'}}</td>
+            <td>{{timeSlots.timeSlotEnd | date: 'dd-MM-yyyy HH:mm'}}</td>
+            <td>
+              <a [routerLink]="['/timeSlots', timeSlots.id]"
+                 [queryParams]="{date: dateModelToString(), page: pageNumber}">
+                {{timeSlots.timeSlotStatus}}
+              </a>
+            </td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm"
+                      [routerLink]="['/timeSlots/', timeSlots.id, 'edit']"
+                      [queryParams]="{date: dateModelToString(), page: pageNumber}"
+              >Edit</button>
+              <!--<button type="button" class="btn btn-danger btn-sm" (click)="deleteIusse(issues)">Remove</button>-->
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <ngb-pagination *ngIf="timeSlotsCollectionSize" class="d-flex justify-content-center"
+          (pageChange)="loadTimeSlots($event)"
+          [collectionSize]="timeSlotsCollectionSize"
+          [pageSize]="this.pageSize"
+          [(page)]="this.pageNumber"
+          [maxSize]="10"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          aria-label="Default pagination">
+        </ngb-pagination>
+        <hr>
+        <pre>Current page: {{this.pageNumber}}</pre>
+        <pre>Current collectionSize: {{this.timeSlotsCollectionSize}}</pre>
+        <pre>Current pageSize: {{this.pageSize}}</pre>
+      </div>
+    </div>
+
+  </div>
+</div>

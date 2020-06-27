@@ -1,0 +1,52 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div class="card-body"
+       *ngIf="timeSlot">
+    <div class="wizard">
+      <a [routerLink]="['slot']"
+          routerLinkActive="active">
+        Time slot info<span [ngClass]="{'fa fa-exclamation': !isValid('slot')}"></span> <!--FontAwesome not installed yet!-->
+      </a>
+      <a [routerLink]="['client']"
+         routerLinkActive="active">
+        Client info<span [ngClass]="{'fa fa-exclamation': !isValid('client')}"></span>
+      </a>
+    </div>
+    <router-outlet></router-outlet>
+    <p></p>
+    <div class="form-group row mb-2">
+      <div class="col-md-4">
+        <button class="btn btn-primary mr-3"
+                style="width:80px"
+                type="button"
+                [disabled]="!isValid()"
+                title="Save your entered data"
+                (click)="saveTimeSlot()">
+          Save
+        </button>
+        <button class="btn btn-outline-secondary mr-3"
+                style="width:80px"
+                type="button"
+                title="Cancel your edits"
+                [routerLink]="['/timeSlots']"
+                queryParamsHandling="preserve">
+          Cancel
+        </button>
+        <button class="btn btn-outline-warning"
+                style="width:80px"
+                type="button"
+                title="Delete this product"
+                (click)="deleteProduct()">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-danger"
+     *ngIf="errorMessage">{{errorMessage}}
+</div>

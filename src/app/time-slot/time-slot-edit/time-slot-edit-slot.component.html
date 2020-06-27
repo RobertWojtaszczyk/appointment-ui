@@ -1,0 +1,77 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div class="card-body"
+       *ngIf="timeSlot">
+    <form novalidate
+          #productForm="ngForm">
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="productNameId">Appointment Start</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="productNameId"
+                 type="text"
+                 placeholder="Date and time (required)"
+                 required
+                 minlength="3"
+                 [(ngModel)]=timeSlot.timeSlotStart
+                 name="productName"
+                 #productNameVar="ngModel"
+                 [ngClass]="{'is-invalid': (productNameVar.touched || productNameVar.dirty) && !productNameVar.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="productNameVar.errors?.required">
+              Start date is required.
+            </span>
+            <span *ngIf="productNameVar.errors?.minlength">
+              Start date must be at least three characters.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="productCodeId">Appointment End</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="productCodeId"
+                 type="text"
+                 placeholder="Date and time (required)"
+                 required
+                 [(ngModel)]=timeSlot.timeSlotEnd
+                 name="productCode"
+                 #productCodeVar="ngModel"
+                 [ngClass]="{'is-invalid': (productCodeVar.touched || productCodeVar.dirty) && !productCodeVar.valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="productCodeVar.errors?.required">
+              Time Slot end is required.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label"
+               for="descriptionId">Status</label>
+        <div class="col-md-8">
+          <textarea class="form-control"
+                    id="descriptionId"
+                    placeholder="Status"
+                    rows=3
+                    [(ngModel)]=timeSlot.timeSlotStatus
+                    name="description"></textarea>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+</div>
+
+<div class="alert alert-danger"
+     *ngIf="errorMessage">{{errorMessage}}
+</div>

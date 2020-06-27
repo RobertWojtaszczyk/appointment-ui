@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div class="card-body"
+       *ngIf="timeSlot">
+
+    <div class="wizard">
+      <a [routerLink]="['slot']">
+        Time slot info
+      </a>
+      <a [routerLink]="['client']">
+        Client info
+      </a>
+    </div>
+    <router-outlet></router-outlet>
+    <p></p>
+
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <button class="btn btn-outline-secondary mr-3"
+                style="width:80px"
+                [routerLink]="['/timeSlots']"
+                queryParamsHandling="preserve">
+          <i class="fa fa-chevron-left"></i> Back
+        </button>
+        <button class="btn btn-outline-primary"
+                style="width:80px"
+                [routerLink]="['/timeSlots', timeSlot.id, 'edit']"
+                queryParamsHandling="preserve">
+          Edit
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="alert alert-danger"
+     *ngIf="errorMessage">{{errorMessage}}
+</div>
