@@ -2,14 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StarComponent } from './star/star.component';
 import {FormsModule} from '@angular/forms';
+import { CriteriaComponent } from './criteria/criteria.component';
 
 @NgModule({
-  declarations: [StarComponent],
+  declarations: [
+    StarComponent,
+    CriteriaComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     StarComponent,
+    CriteriaComponent,
     CommonModule,
     FormsModule
   ]

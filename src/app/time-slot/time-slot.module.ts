@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {SharedModule} from '../shared/shared.module';
 import {RouterModule} from '@angular/router';
 import {TimeSlotListComponent} from './time-slot-list/time-slot-list.component';
-import { TimeSlotDetailComponent } from './time-slot-detail/time-slot-detail.component';
-import { TimeSlotEditComponent } from './time-slot-edit/time-slot-edit.component';
+import {TimeSlotDetailComponent} from './time-slot-detail/time-slot-detail.component';
+import {TimeSlotEditComponent} from './time-slot-edit/time-slot-edit.component';
 import {NgbDatepickerModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {TimeSlotResolverService} from './time-slot-resolver.service';
 import {TimeSlotEditSlotComponent} from './time-slot-edit/time-slot-edit-slot.component';
 import {TimeSlotEditClientComponent} from './time-slot-edit/time-slot-edit-client.component';
 import {TimeSlotDetailClientComponent} from './time-slot-detail/time-slot-detail-client.component';
 import {TimeSlotDetailSlotComponent} from './time-slot-detail/time-slot-detail-slot.component';
-
+import {TimeSlotEditGuard} from './time-slot-edit/time-slot-edit.guard';
 
 
 @NgModule({
@@ -26,9 +26,6 @@ import {TimeSlotDetailSlotComponent} from './time-slot-detail/time-slot-detail-s
     imports: [
         SharedModule,
         RouterModule.forChild([
-          {
-            path: 'timeSlots',
-            children: [
               {
                 path: '',
                 component: TimeSlotListComponent
@@ -56,6 +53,7 @@ import {TimeSlotDetailSlotComponent} from './time-slot-detail/time-slot-detail-s
               {
                 path: ':id/edit',
                 component: TimeSlotEditComponent,
+                canDeactivate: [TimeSlotEditGuard],
                 resolve: {resolvedData: TimeSlotResolverService},
                 children: [
                   {
@@ -73,8 +71,6 @@ import {TimeSlotDetailSlotComponent} from './time-slot-detail/time-slot-detail-s
                   }
                 ]
               }
-            ]
-          }
         ]),
         NgbDatepickerModule,
         NgbPaginationModule

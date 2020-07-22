@@ -3,6 +3,7 @@ import {TimeSlotsService} from '../time-slots.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TimeSlot, TimeSlotResolved} from '../../model/timeSlot';
 import {NewTimeSlot} from '../../model/newTimeSlot';
+import {MessageService} from '../../message/message.service';
 
 @Component({
   selector: 'app-time-slot-edit',
@@ -12,10 +13,27 @@ import {NewTimeSlot} from '../../model/newTimeSlot';
 export class TimeSlotEditComponent implements OnInit {
   pageTitle = 'Time Slot Edit';
   errorMessage: string;
-  timeSlot: TimeSlot;
+  // timeSlot: TimeSlot;
   private dataIsValid: { [key: string]: boolean } = {};
 
+  get isDirty(): boolean {
+    return JSON.stringify(this.originalTimeSlot) !== JSON.stringify(this.currentTimeSlot);
+  }
+
+  private currentTimeSlot: TimeSlot;
+  private originalTimeSlot: TimeSlot;
+
+  get timeSlot(): TimeSlot {
+    return this.currentTimeSlot;
+  }
+  set timeSlot(value: TimeSlot) {
+    this.currentTimeSlot = value;
+    // clone the object to retain a copy
+    this.originalTimeSlot = { ...value };
+  }
+
   constructor(private timeSlotsService: TimeSlotsService,
+              private messageService: MessageService,
               private route: ActivatedRoute,
               private router: Router) { }
 
@@ -74,6 +92,12 @@ export class TimeSlotEditComponent implements OnInit {
     }
   }
 
+  reset(): void {
+    this.dataIsValid = null;
+    this.currentTimeSlot = null;
+    this.originalTimeSlot = null;
+  }
+
   saveTimeSlot(): void {
     if (this.isValid()) {
       if (this.timeSlot.id === 'new') {
@@ -106,10 +130,11 @@ export class TimeSlotEditComponent implements OnInit {
   }
 
   onSaveComplete(message?: string): void {
-    /*if (message) {
+    if (message) {
       this.messageService.addMessage(message);
-    }*/
+    }
     console.log('Time slot saved: ' + message);
+    this.reset();
     // Navigate back to the product list
     this.router.navigate(['/timeSlots'],
       { queryParamsHandling: 'preserve'});
